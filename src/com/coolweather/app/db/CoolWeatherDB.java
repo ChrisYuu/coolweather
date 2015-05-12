@@ -93,7 +93,7 @@ public class CoolWeatherDB {
 	}
 	
 	/**
-	 * 获取所有城市
+	 * 获取某省下所有城市
 	 * @return
 	 */
 	public List<City> loadCity(int provinceId){
@@ -122,7 +122,7 @@ public class CoolWeatherDB {
 			values.put("county_name", county.getCountyName());
 			values.put("county_code", county.getCountyCode());
 			values.put("city_id", county.getCityId());
-			db.insert("City", null, values);
+			db.insert("County", null, values);
 		}
 	}
 	
@@ -133,7 +133,7 @@ public class CoolWeatherDB {
 	 */
 	public List<County> loadCounty(int cityId){
 		List<County> list = new ArrayList<County>();
-		Cursor cursor = db.query("County", null, "city_id", new String[]{String.valueOf(cityId)}, null, null, null);
+		Cursor cursor = db.query("County", null, "city_id=?", new String[]{String.valueOf(cityId)}, null, null, null);
 		if(cursor.moveToFirst()){
 			do{
 				County county = new County();
